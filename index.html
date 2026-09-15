@@ -1,0 +1,2603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CollegeConnect | SRIT Smart Portal</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+:root{
+    --primary:#166534;
+    --primary-dark:#14532d;
+    --secondary:#d4a017;
+    --bg:#f1f5f9;
+    --card:#ffffff;
+    --text:#1e293b;
+    --muted:#64748b;
+    --border:#e2e8f0;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+}
+
+/* ================= LOGIN ================= */
+
+.login-page{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+
+    background:
+    linear-gradient(rgba(0,40,20,.72),rgba(0,20,10,.78)),
+    url("https://www.srit.org/images/sliders/SRIT_Front_3.jpg");
+
+    background-size:cover;
+    background-position:center;
+}
+
+.login-page::before{
+    content:"";
+    position:absolute;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:rgba(212,160,23,.12);
+    top:-180px;
+    right:-120px;
+}
+
+.login-page::after{
+    content:"";
+    position:absolute;
+    width:400px;
+    height:400px;
+    border-radius:50%;
+    background:rgba(255,255,255,.08);
+    bottom:-180px;
+    left:-100px;
+}
+
+.login-box{
+    width:450px;
+    max-width:92%;
+    padding:38px;
+    background:rgba(255,255,255,.96);
+    border-radius:25px;
+    box-shadow:0 25px 70px rgba(0,0,0,.35);
+    position:relative;
+    z-index:2;
+    backdrop-filter:blur(10px);
+}
+
+.college-logo{
+    width:85px;
+    height:85px;
+    object-fit:contain;
+    display:block;
+    margin:0 auto 12px;
+}
+
+.login-title{
+    text-align:center;
+}
+
+.login-title h1{
+    font-size:29px;
+    color:var(--primary);
+}
+
+.login-title h2{
+    font-size:15px;
+    margin-top:6px;
+    color:#334155;
+}
+
+.login-title p{
+    margin-top:8px;
+    font-size:12px;
+    color:var(--muted);
+}
+
+.divider{
+    height:1px;
+    background:var(--border);
+    margin:25px 0;
+}
+
+.input-group{
+    margin-bottom:18px;
+}
+
+.input-group label{
+    display:block;
+    font-size:14px;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.input-group input{
+    width:100%;
+    padding:14px;
+    border:1px solid #cbd5e1;
+    border-radius:10px;
+    outline:none;
+    font-size:14px;
+}
+
+.input-group input:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px rgba(22,101,52,.12);
+}
+
+.login-btn{
+    width:100%;
+    padding:14px;
+    border:0;
+    border-radius:10px;
+    background:var(--primary);
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.login-btn:hover{
+    background:var(--primary-dark);
+    transform:translateY(-2px);
+}
+
+.demo-box{
+    margin-top:18px;
+    padding:12px;
+    background:#f0fdf4;
+    border:1px solid #bbf7d0;
+    border-radius:10px;
+    text-align:center;
+    font-size:12px;
+    color:#166534;
+}
+
+/* ================= DASHBOARD ================= */
+
+.dashboard{
+    display:none;
+    min-height:100vh;
+}
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:255px;
+    background:#0f2418;
+    color:white;
+    padding:22px 14px;
+    z-index:20;
+    overflow-y:auto;
+}
+
+.brand{
+    padding:10px 12px 22px;
+    border-bottom:1px solid rgba(255,255,255,.12);
+    text-align:center;
+}
+
+.brand-logo{
+    width:58px;
+    height:58px;
+    object-fit:contain;
+    margin-bottom:8px;
+    background:white;
+    border-radius:50%;
+    padding:5px;
+}
+
+.brand h2{
+    font-size:20px;
+}
+
+.brand p{
+    color:#a7c5b1;
+    font-size:11px;
+    margin-top:5px;
+}
+
+.menu{
+    margin-top:20px;
+}
+
+.menu-title{
+    color:#769482;
+    font-size:10px;
+    font-weight:bold;
+    padding:10px 13px;
+    text-transform:uppercase;
+}
+
+.menu button{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:#d9e8dd;
+    padding:12px 14px;
+    margin:3px 0;
+    border-radius:9px;
+    cursor:pointer;
+    text-align:left;
+    font-size:13px;
+    transition:.2s;
+}
+
+.menu button:hover,
+.menu button.active{
+    background:#166534;
+    color:white;
+}
+
+.logout{
+    margin-top:20px !important;
+    color:#fecaca !important;
+}
+
+.main{
+    margin-left:255px;
+    min-height:100vh;
+}
+
+.topbar{
+    height:75px;
+    background:white;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 32px;
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+
+.topbar-left h2{
+    font-size:21px;
+}
+
+.topbar-left span{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.top-actions{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.icon-btn{
+    border:0;
+    background:#f1f5f9;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:17px;
+    position:relative;
+}
+
+.notification-dot{
+    position:absolute;
+    width:8px;
+    height:8px;
+    background:#ef4444;
+    border-radius:50%;
+    top:5px;
+    right:5px;
+}
+
+.profile{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
+}
+
+.avatar{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:var(--primary);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+}
+
+.profile-info strong{
+    font-size:13px;
+}
+
+.profile-info small{
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+}
+
+/* ================= CONTENT ================= */
+
+.content{
+    padding:30px;
+}
+
+.section{
+    display:none;
+}
+
+.section.active{
+    display:block;
+}
+
+.welcome{
+    min-height:180px;
+    border-radius:20px;
+    padding:30px;
+    color:white;
+
+    background:
+    linear-gradient(120deg,rgba(22,101,52,.96),rgba(20,83,45,.88)),
+    url("https://www.srit.org/images/sliders/SRIT_Front_3.jpg");
+
+    background-size:cover;
+    background-position:center;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:25px;
+    box-shadow:0 12px 30px rgba(22,101,52,.18);
+}
+
+.welcome-text{
+    max-width:650px;
+}
+
+.welcome h1{
+    font-size:29px;
+    margin-bottom:9px;
+}
+
+.welcome p{
+    color:#dcfce7;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.welcome-badge{
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.25);
+    padding:14px 18px;
+    border-radius:14px;
+    text-align:center;
+}
+
+.welcome-badge strong{
+    display:block;
+    font-size:22px;
+}
+
+.welcome-badge span{
+    font-size:11px;
+}
+
+/* ================= STAT CARDS ================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:25px;
+}
+
+.stat-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:20px;
+    transition:.25s;
+}
+
+.stat-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 12px 25px rgba(15,23,42,.08);
+}
+
+.stat-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.stat-head span{
+    font-size:13px;
+    color:var(--muted);
+}
+
+.stat-icon{
+    width:43px;
+    height:43px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:11px;
+    background:#f0fdf4;
+    font-size:20px;
+}
+
+.stat-card h3{
+    font-size:28px;
+    margin-top:15px;
+}
+
+.stat-card small{
+    color:#16a34a;
+    font-size:11px;
+}
+
+/* ================= GRID ================= */
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
+}
+
+.panel{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px;
+}
+
+.panel-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.panel-header h3{
+    font-size:16px;
+}
+
+.panel-header span{
+    font-size:12px;
+    color:var(--primary);
+    cursor:pointer;
+}
+
+/* ================= ANNOUNCEMENTS ================= */
+
+.announcement{
+    padding:14px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.announcement:last-child{
+    border-bottom:0;
+}
+
+.announcement strong{
+    display:block;
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+.announcement p{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.5;
+}
+
+.announcement-date{
+    display:inline-block;
+    margin-top:7px;
+    font-size:10px;
+    color:#166534;
+    background:#f0fdf4;
+    padding:4px 7px;
+    border-radius:5px;
+}
+
+/* ================= QUICK ACTIONS ================= */
+
+.quick-actions{
+    display:grid;
+    gap:10px;
+}
+
+.quick-actions button{
+    padding:13px;
+    border:1px solid #dcfce7;
+    background:#f0fdf4;
+    color:#166534;
+    border-radius:9px;
+    text-align:left;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.quick-actions button:hover{
+    background:#dcfce7;
+    transform:translateX(3px);
+}
+
+/* ================= SECTION HEADER ================= */
+
+.section-header{
+    margin-bottom:22px;
+}
+
+.section-header h2{
+    font-size:24px;
+}
+
+.section-header p{
+    color:var(--muted);
+    font-size:13px;
+    margin-top:5px;
+}
+
+/* ================= TABLE ================= */
+
+.table-box{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:20px;
+    overflow-x:auto;
+}
+
+.table-tools{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+    gap:10px;
+}
+
+.search{
+    width:320px;
+    max-width:100%;
+    padding:12px 14px;
+    border:1px solid #cbd5e1;
+    border-radius:9px;
+    outline:none;
+}
+
+.search:focus{
+    border-color:var(--primary);
+}
+
+.add-btn{
+    padding:11px 15px;
+    border:0;
+    background:var(--primary);
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:14px 12px;
+    border-bottom:1px solid var(--border);
+    text-align:left;
+    font-size:13px;
+}
+
+th{
+    background:#f8fafc;
+    color:#475569;
+    font-size:12px;
+}
+
+tr:hover td{
+    background:#fafdfb;
+}
+
+.badge{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:10px;
+    font-weight:bold;
+}
+
+.active-badge{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.pending-badge{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+/* ================= ATTENDANCE ================= */
+
+.attendance-card{
+    margin-bottom:15px;
+}
+
+.attendance-top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:7px;
+}
+
+.progress{
+    height:9px;
+    background:#e2e8f0;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    background:#16a34a;
+    border-radius:20px;
+}
+
+/* ================= CARDS ================= */
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.info-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:20px;
+}
+
+.info-card .big-icon{
+    font-size:30px;
+    margin-bottom:12px;
+}
+
+.info-card h3{
+    font-size:16px;
+    margin-bottom:7px;
+}
+
+.info-card p{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.5;
+}
+
+/* ================= PROFILE POPUP ================= */
+
+.profile-popup{
+    display:none;
+    position:fixed;
+    top:70px;
+    right:25px;
+    width:260px;
+    background:white;
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:18px;
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+    z-index:50;
+}
+
+.profile-popup.show{
+    display:block;
+}
+
+.profile-popup h3{
+    font-size:16px;
+}
+
+.profile-popup p{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:5px;
+}
+
+.profile-popup hr{
+    border:0;
+    border-top:1px solid var(--border);
+    margin:14px 0;
+}
+
+.profile-popup button{
+    width:100%;
+    border:0;
+    background:#f1f5f9;
+    padding:10px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+/* ================= DARK MODE ================= */
+
+body.dark{
+    --bg:#0f172a;
+    --card:#1e293b;
+    --text:#f8fafc;
+    --muted:#94a3b8;
+    --border:#334155;
+}
+
+body.dark .main,
+body.dark .topbar,
+body.dark .panel,
+body.dark .table-box,
+body.dark .stat-card,
+body.dark .info-card,
+body.dark .profile-popup{
+    background:#1e293b;
+}
+
+body.dark th{
+    background:#0f172a;
+}
+
+body.dark td{
+    color:#e2e8f0;
+}
+
+body.dark .topbar{
+    border-color:#334155;
+}
+
+body.dark .search{
+    background:#0f172a;
+    color:white;
+}
+
+/* ================= MOBILE ================= */
+
+.mobile-menu{
+    display:none;
+}
+
+@media(max-width:1000px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .dashboard-grid{
+        grid-template-columns:1fr;
+    }
+
+    .info-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:700px){
+
+    .sidebar{
+        width:220px;
+        transform:translateX(-100%);
+        transition:.3s;
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .mobile-menu{
+        display:block;
+        border:0;
+        background:#f1f5f9;
+        width:38px;
+        height:38px;
+        border-radius:8px;
+        cursor:pointer;
+        font-size:20px;
+        margin-right:10px;
+    }
+
+    .topbar{
+        padding:0 15px;
+    }
+
+    .topbar-left{
+        display:flex;
+        align-items:center;
+    }
+
+    .profile-info{
+        display:none;
+    }
+
+    .content{
+        padding:18px;
+    }
+
+    .welcome{
+        padding:22px;
+    }
+
+    .welcome-badge{
+        display:none;
+    }
+
+    .welcome h1{
+        font-size:23px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .info-grid{
+        grid-template-columns:1fr;
+    }
+
+    .table-tools{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .search{
+        width:100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN PAGE ================= -->
+
+<div class="login-page" id="loginPage">
+
+    <div class="login-box">
+
+        <img
+            class="college-logo"
+            src="https://www.srit.org/images/logo.png"
+            alt="SRIT Logo"
+            onerror="this.style.display='none'"
+        >
+
+        <div class="login-title">
+
+            <h1>CollegeConnect</h1>
+
+            <h2>
+                Sri Ramakrishna Institute of Technology
+            </h2>
+
+            <p>
+                Smart College Management Portal
+            </p>
+
+            <p>
+                Wisdom • Discipline • Prosperity
+            </p>
+
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="input-group">
+
+            <label>Email Address</label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+            >
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+            >
+
+        </div>
+
+        <button class="login-btn" onclick="login()">
+            Login to CollegeConnect
+        </button>
+
+        <div class="demo-box">
+
+            <strong>Demo Login</strong><br>
+
+            admin@collegeconnect.local<br>
+
+            Admin@12345
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<div class="dashboard" id="dashboard">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+
+            <img
+                class="brand-logo"
+                src="https://www.srit.org/images/logo.png"
+                alt="SRIT Logo"
+                onerror="this.style.display='none'"
+            >
+
+            <h2>CollegeConnect</h2>
+
+            <p>SRIT Smart Academic Portal</p>
+
+        </div>
+
+
+        <div class="menu">
+
+            <div class="menu-title">
+                Main Menu
+            </div>
+
+            <button
+                class="active"
+                onclick="showSection('dashboardSection',this)"
+            >
+                🏠 &nbsp; Dashboard
+            </button>
+
+            <button onclick="showSection('studentsSection',this)">
+                👨‍🎓 &nbsp; Students
+            </button>
+
+            <button onclick="showSection('facultySection',this)">
+                👨‍🏫 &nbsp; Faculty
+            </button>
+
+            <button onclick="showSection('coursesSection',this)">
+                📚 &nbsp; Courses
+            </button>
+
+
+            <div class="menu-title">
+                Academic
+            </div>
+
+            <button onclick="showSection('attendanceSection',this)">
+                📊 &nbsp; Attendance
+            </button>
+
+            <button onclick="showSection('examSection',this)">
+                📝 &nbsp; Examinations
+            </button>
+
+            <button onclick="showSection('assignmentSection',this)">
+                📋 &nbsp; Assignments
+            </button>
+
+            <button onclick="showSection('announcementSection',this)">
+                📢 &nbsp; Announcements
+            </button>
+
+
+            <div class="menu-title">
+                System
+            </div>
+
+            <button onclick="toggleDarkMode()">
+                🌙 &nbsp; Dark Mode
+            </button>
+
+            <button
+                class="logout"
+                onclick="logout()"
+            >
+                🚪 &nbsp; Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <button
+                    class="mobile-menu"
+                    onclick="toggleSidebar()"
+                >
+                    ☰
+                </button>
+
+                <div>
+
+                    <h2 id="pageTitle">
+                        Dashboard
+                    </h2>
+
+                    <span>
+                        Sri Ramakrishna Institute of Technology
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="top-actions">
+
+                <button
+                    class="icon-btn"
+                    onclick="showNotifications()"
+                >
+                    🔔
+                    <span class="notification-dot"></span>
+                </button>
+
+
+                <div
+                    class="profile"
+                    onclick="toggleProfile()"
+                >
+
+                    <div class="profile-info">
+
+                        <strong>
+                            Admin
+                        </strong>
+
+                        <small>
+                            Administrator
+                        </small>
+
+                    </div>
+
+                    <div class="avatar">
+                        A
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- PROFILE POPUP -->
+
+        <div
+            class="profile-popup"
+            id="profilePopup"
+        >
+
+            <h3>
+                Administrator
+            </h3>
+
+            <p>
+                admin@collegeconnect.local
+            </p>
+
+            <hr>
+
+            <button onclick="alert('Profile settings coming soon!')">
+                ⚙️ Profile Settings
+            </button>
+
+        </div>
+
+
+        <div class="content">
+
+
+            <!-- ================= DASHBOARD ================= -->
+
+            <section
+                class="section active"
+                id="dashboardSection"
+            >
+
+                <div class="welcome">
+
+                    <div class="welcome-text">
+
+                        <h1>
+                            Welcome to CollegeConnect 👋
+                        </h1>
+
+                        <p>
+                            A centralized smart academic management
+                            portal for Sri Ramakrishna Institute of Technology.
+                            Manage students, faculty, courses and academic
+                            activities from one place.
+                        </p>
+
+                    </div>
+
+
+                    <div class="welcome-badge">
+
+                        <strong>
+                            2026
+                        </strong>
+
+                        <span>
+                            Academic Year
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STATISTICS -->
+
+                <div class="stats">
+
+                    <div class="stat-card">
+
+                        <div class="stat-head">
+
+                            <span>
+                                Total Students
+                            </span>
+
+                            <div class="stat-icon">
+                                👨‍🎓
+                            </div>
+
+                        </div>
+
+                        <h3>
+                            1,248
+                        </h3>
+
+                        <small>
+                            ↑ 8% this semester
+                        </small>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-head">
+
+                            <span>
+                                Faculty Members
+                            </span>
+
+                            <div class="stat-icon">
+                                👨‍🏫
+                            </div>
+
+                        </div>
+
+                        <h3>
+                            86
+                        </h3>
+
+                        <small>
+                            ↑ 4 new faculty
+                        </small>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-head">
+
+                            <span>
+                                Active Courses
+                            </span>
+
+                            <div class="stat-icon">
+                                📚
+                            </div>
+
+                        </div>
+
+                        <h3>
+                            42
+                        </h3>
+
+                        <small>
+                            6 departments
+                        </small>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-head">
+
+                            <span>
+                                Average Attendance
+                            </span>
+
+                            <div class="stat-icon">
+                                📊
+                            </div>
+
+                        </div>
+
+                        <h3>
+                            91%
+                        </h3>
+
+                        <small>
+                            ↑ 2.5% improvement
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DASHBOARD GRID -->
+
+                <div class="dashboard-grid">
+
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <h3>
+                                📢 Recent Announcements
+                            </h3>
+
+                            <span
+                                onclick="showSection('announcementSection')"
+                            >
+                                View All
+                            </span>
+
+                        </div>
+
+
+                        <div class="announcement">
+
+                            <strong>
+                                Internal Assessment Schedule Released
+                            </strong>
+
+                            <p>
+                                The internal assessment examination
+                                schedule has been published.
+                            </p>
+
+                            <span class="announcement-date">
+                                Today
+                            </span>
+
+                        </div>
+
+
+                        <div class="announcement">
+
+                            <strong>
+                                Placement Training Program
+                            </strong>
+
+                            <p>
+                                Students can participate in the upcoming
+                                placement preparation sessions.
+                            </p>
+
+                            <span class="announcement-date">
+                                Yesterday
+                            </span>
+
+                        </div>
+
+
+                        <div class="announcement">
+
+                            <strong>
+                                Semester Registration Open
+                            </strong>
+
+                            <p>
+                                Semester registration is now available
+                                for students.
+                            </p>
+
+                            <span class="announcement-date">
+                                2 days ago
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <h3>
+                                ⚡ Quick Actions
+                            </h3>
+
+                        </div>
+
+
+                        <div class="quick-actions">
+
+                            <button
+                                onclick="showSection('studentsSection')"
+                            >
+                                👨‍🎓 View Students
+                            </button>
+
+                            <button
+                                onclick="showSection('attendanceSection')"
+                            >
+                                📊 Check Attendance
+                            </button>
+
+                            <button
+                                onclick="showSection('examSection')"
+                            >
+                                📝 Exam Schedule
+                            </button>
+
+                            <button
+                                onclick="showSection('assignmentSection')"
+                            >
+                                📋 View Assignments
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= STUDENTS ================= -->
+
+            <section
+                class="section"
+                id="studentsSection"
+            >
+
+                <div class="section-header">
+
+                    <h2>
+                        Student Management
+                    </h2>
+
+                    <p>
+                        View and manage registered students
+                    </p>
+
+                </div>
+
+
+                <div class="table-box">
+
+                    <div class="table-tools">
+
+                        <input
+                            class="search"
+                            placeholder="🔍 Search students..."
+                            onkeyup="searchTable(this,'studentTable')"
+                        >
+
+                        <button
+                            class="add-btn"
+                            onclick="alert('Add Student feature coming soon!')"
+                        >
+                            + Add Student
+                        </button>
+
+                    </div>
+
+
+                    <table id="studentTable">
+
+                        <tr>
+
+                            <th>
+                                Register No
+                            </th>
+
+                            <th>
+                                Name
+                            </th>
+
+                            <th>
+                                Department
+                            </th>
+
+                            <th>
+                                Year
+                            </th>
+
+                            <th>
+                                Email
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                24IT001
+                            </td>
+
+                            <td>
+                                Anandh M
+                            </td>
+
+                            <td>
+                                Information Technology
+                            </td>
+
+                            <td>
+                                2nd Year
+                            </td>
+
+                            <td>
+                                anandh@srit.ac.in
+                            </td>
+
+                            <td>
+                                <span class="badge active-badge">
+                                    Active
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                24IT002
+                            </td>
+
+                            <td>
+                                Arun Kumar
+                            </td>
+
+                            <td>
+                                Information Technology
+                            </td>
+
+                            <td>
+                                2nd Year
+                            </td>
+
+                            <td>
+                                arun@srit.ac.in
+                            </td>
+
+                            <td>
+                                <span class="badge active-badge">
+                                    Active
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                24IT003
+                            </td>
+
+                            <td>
+                                Priya S
+                            </td>
+
+                            <td>
+                                Computer Science
+                            </td>
+
+                            <td>
+                                2nd Year
+                            </td>
+
+                            <td>
+                                priya@srit.ac.in
+                            </td>
+
+                            <td>
+                                <span class="badge active-badge">
+                                    Active
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                24IT004
+                            </td>
+
+                            <td>
+                                Karthik R
+                            </td>
+
+                            <td>
+                                Information Technology
+                            </td>
+
+                            <td>
+                                2nd Year
+                            </td>
+
+                            <td>
+                                karthik@srit.ac.in
+                            </td>
+
+                            <td>
+                                <span class="badge pending-badge">
+                                    Pending
+                                </span>
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= FACULTY ================= -->
+
+            <section
+                class="section"
+                id="facultySection"
+            >
+
+                <div class="section-header">
+
+                    <h2>
+                        Faculty Management
+                    </h2>
+
+                    <p>
+                        Faculty members and department information
+                    </p>
+
+                </div>
+
+
+                <div class="table-box">
+
+                    <table>
+
+                        <tr>
+
+                            <th>
+                                Faculty ID
+                            </th>
+
+                            <th>
+                                Name
+                            </th>
+
+                            <th>
+                                Department
+                            </th>
+
+                            <th>
+                                Designation
+                            </th>
+
+                            <th>
+                                Experience
+                            </th>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                FAC001
+                            </td>
+
+                            <td>
+                                Dr. Kumar
+                            </td>
+
+                            <td>
+                                Information Technology
+                            </td>
+
+                            <td>
+                                Professor
+                            </td>
+
+                            <td>
+                                15 Years
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                FAC002
+                            </td>
+
+                            <td>
+                                Dr. Priya
+                            </td>
+
+                            <td>
+                                Computer Science
+                            </td>
+
+                            <td>
+                                Associate Professor
+                            </td>
+
+                            <td>
+                                11 Years
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                FAC003
+                            </td>
+
+                            <td>
+                                Mr. Raj
+                            </td>
+
+                            <td>
+                                Information Technology
+                            </td>
+
+                            <td>
+                                Assistant Professor
+                            </td>
+
+                            <td>
+                                7 Years
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= COURSES ================= -->
+
+            <section
+                class="section"
+                id="coursesSection"
+            >
+
+                <div class="section-header">
+
+                    <h2>
+                        Course Management
+                    </h2>
+
+                    <p>
+                        Academic courses offered by the institution
+                    </p>
+
+                </div>
+
+
+                <div class="info-grid">
+
+                    <div class="info-card">
+
+                        <div class="big-icon">
+                            💻
+                        </div>
+
+                        <h3>
+                            Information Technology
+                        </h3>
+
+                        <p>
+                            8 active courses covering programming,
+                            databases, cloud computing and AI.
+                        </p>
+
+                    </div>
+
+
+                    <div class="info-card">
+
+                        <div class="big-icon">
+                            🖥️
+                        </div>
+
+                        <h3>
+                            Computer Science
+                        </h3>
+
+                        <p>
+                            Core computing subjects and advanced
+                            software engineering courses.
+                        </p>
+
+                    </div>
+
+
+                    <div class="info-card">
+
+                        <div class="big-icon">
+                            ⚙️
+                        </div>
+
+                        <h3>
+                            Engineering
+                        </h3>
+
+                        <p>
+                            Engineering fundamentals and
+                            technical specialization courses.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <br>
+
+
+                <div class="table-box">
+
+                    <table>
+
+                        <tr>
+
+                            <th>
+                                Course Code
+                            </th>
+
+                            <th>
+                                Course Name
+                            </th>
+
+                            <th>
+                                Department
+                            </th>
+
+                            <th>
+                                Credits
+                            </th>
+
+                            <th>
+                                Faculty
+                            </th>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                IT501
+                            </td>
+
+                            <td>
+                                Cloud Computing
+                            </td>
+
+                            <td>
+                                IT
+                            </td>
+
+                            <td>
+                                4
+                            </td>
+
+                            <td>
+                                Dr. Kumar
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                IT502
+                            </td>
+
+                            <td>
+                                Data Structures
+                            </td>
+
+                            <td>
+                                IT
+                            </td>
+
+                            <td>
+                                4
+                            </td>
+
+                            <td>
+                                Mr. Raj
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                IT503
+                            </td>
+
+                            <td>
+                                Database Management
+                            </td>
+
+                            <td>
+                                IT
+                            </td>
+
+                            <td>
+                                3
+                            </td>
+
+                            <td>
+                                Dr. Priya
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= ATTENDANCE ================= -->
+
+            <section
+                class="section"
+                id="attendanceSection"
+            >
+
+                <div class="section-header">
+
+                    <h2>
+                        Attendance Monitoring
+                    </h2>
+
+                    <p>
+                        Track student attendance percentage
+                    </p>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="attendance-card">
+
+                        <div class="attendance-top">
+
+                            <strong>
+                                Anandh M
+                            </strong>
+
+                            <strong>
+                                91.6%
+                            </strong>
+
+                        </div>
+
+                        <div class="progress">
+
+                            <div
+                                class="progress-bar"
+                                style="width:91.6%"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="attendance-card">
+
+                        <div class="attendance-top">
+
+                            <strong>
+                                Arun Kumar
+                            </strong>
+
+                            <strong>
+                                87.5%
+                            </strong>
+
+                        </div>
+
+                        <div class="progress">
+
+                            <div
+                                class="progress-bar"
+                                style="width:87.5%"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="attendance-card">
+
+                        <div class="attendance-top">
+
+                            <strong>
+                                Priya S
+                            </strong>
+
+                            <strong>
+                                94.2%
+                            </strong>
+
+                        </div>
+
+                        <div class="progress">
+
+                            <div
+                                class="progress-bar"
+                                style="width:94.2%"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= EXAM ================= -->
+
+            <section
+                class="section"
+                id="examSection"
+            >
+
+                <div class="section-header">
+
+                    <h2>
+                        Examination Schedule
+                    </h2>
+
+                    <p>
+                        Upcoming academic examinations
+                    </p>
+
+                </div>
+
+
+                <div class="table-box">
+
+                    <table>
+
+                        <tr>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Subject
+                            </th>
+
+                            <th>
+                                Time
+                            </th>
+
+                            <th>
+                                Venue
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                20 Sep 2026
+                            </td>
+
+                            <td>
+                                Data Structures
+                            </td>
+
+                            <td>
+                                10:00 AM
+                            </td>
+
+                            <td>
+                                Block A
+                            </td>
+
+                            <td>
+                                <span class="badge active-badge">
+                                    Scheduled
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                22 Sep 2026
+                            </td>
+
+                            <td>
+                                DBMS
+                            </td>
+
+                            <td>
+                                10:00 AM
+                            </td>
+
+                            <td>
+                                Block B
+                            </td>
+
+                            <td>
+                                <span class="badge active-badge">
+                                    Scheduled
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                24 Sep 2026
+                            </td>
+
+                            <td>
+                                Computer Networks
+                            </td>
+
+                            <td>
+                                2:00 PM
+                            </td>
+
+                            <td>
+                                Block C
+                            </td>
+
+                            <td>
+                                <span class="badge active-badge">
+                                    Scheduled
+                                </span>
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= ASSIGNMENTS ================= -->
+
+            <section
+                class="section"
+                id="assignmentSection"
+            >
+
+                <div class="section-header">
+
+                    <h2>
+                        Assignments
+                    </h2>
+
+                    <p>
+                        Track academic assignments and deadlines
+                    </p>
+
+                </div>
+
+
+                <div class="table-box">
+
+                    <table>
+
+                        <tr>
+
+                            <th>
+                                Assignment
+                            </th>
+
+                            <th>
+                                Subject
+                            </th>
+
+                            <th>
+                                Due Date
+                            </th>
+
+                            <th>
+                                Faculty
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                Tree Traversal
+                            </td>
+
+                            <td>
+                                Data Structures
+                            </td>
+
+                            <td>
+                                18 Sep 2026
+                            </td>
+
+                            <td>
+                                Mr. Raj
+                            </td>
+
+                            <td>
+                                <span class="badge pending-badge">
+                                    Pending
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                SQL Queries
+                            </td>
+
+                            <td>
+                                DBMS
+                            </td>
+
+                            <td>
+                                21 Sep 2026
+                            </td>
+
+                            <td>
+                                Dr. Priya
+                            </td>
+
+                            <td>
+                                <span class="badge active-badge">
+                                    Active
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                Cloud Architecture
+                            </td>
+
+                            <td>
+                                Cloud Computing
+                            </td>
+
+                            <td>
+                                25 Sep 2026
+                            </td>
+
+                            <td>
+                                Dr. Kumar
+                            </td>
+
+                            <td>
+                                <span class="badge active-badge">
+                                    Active
+                                </span>
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= ANNOUNCEMENTS ================= -->
+
+            <section
+                class="section"
+                id="announcementSection"
+            >
+
+                <div class="section-header">
+
+                    <h2>
+                        Announcements
+                    </h2>
+
+                    <p>
+                        Important college updates and notifications
+                    </p>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="announcement">
+
+                        <strong>
+                            📢 Internal Assessment Schedule Released
+                        </strong>
+
+                        <p>
+                            Internal assessment examination schedule
+                            has been published for all departments.
+                        </p>
+
+                        <span class="announcement-date">
+                            15 Sep 2026
+                        </span>
+
+                    </div>
+
+
+                    <div class="announcement">
+
+                        <strong>
+                            📢 Placement Training Program
+                        </strong>
+
+                        <p>
+                            Students can participate in placement
+                            training and aptitude preparation sessions.
+                        </p>
+
+                        <span class="announcement-date">
+                            14 Sep 2026
+                        </span>
+
+                    </div>
+
+
+                    <div class="announcement">
+
+                        <strong>
+                            📢 Semester Registration Open
+                        </strong>
+
+                        <p>
+                            Semester registration is now available
+                            through the academic portal.
+                        </p>
+
+                        <span class="announcement-date">
+                            13 Sep 2026
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+/* LOGIN */
+
+function login(){
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const password =
+        document.getElementById("password").value.trim();
+
+
+    if(
+        email === "admin@collegeconnect.local" &&
+        password === "Admin@12345"
+    ){
+
+        document.getElementById("loginPage").style.display="none";
+
+        document.getElementById("dashboard").style.display="block";
+
+    }
+
+    else{
+
+        alert(
+            "Invalid login details.\n\nUse:\nadmin@collegeconnect.local\nAdmin@12345"
+        );
+
+    }
+
+}
+
+
+/* LOGOUT */
+
+function logout(){
+
+    document.getElementById("dashboard").style.display="none";
+
+    document.getElementById("loginPage").style.display="flex";
+
+    document.getElementById("email").value="";
+
+    document.getElementById("password").value="";
+
+}
+
+
+/* SECTION NAVIGATION */
+
+function showSection(id,button){
+
+    document.querySelectorAll(".section")
+    .forEach(section=>{
+        section.classList.remove("active");
+    });
+
+
+    const selected =
+        document.getElementById(id);
+
+    if(selected){
+        selected.classList.add("active");
+    }
+
+
+    document.querySelectorAll(".menu button")
+    .forEach(btn=>{
+        btn.classList.remove("active");
+    });
+
+
+    if(button){
+        button.classList.add("active");
+    }
+
+
+    const titles={
+
+        dashboardSection:"Dashboard",
+
+        studentsSection:"Students",
+
+        facultySection:"Faculty",
+
+        coursesSection:"Courses",
+
+        attendanceSection:"Attendance",
+
+        examSection:"Examinations",
+
+        assignmentSection:"Assignments",
+
+        announcementSection:"Announcements"
+
+    };
+
+
+    document.getElementById("pageTitle").innerText =
+        titles[id] || "Dashboard";
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* SEARCH */
+
+function searchTable(input,tableId){
+
+    const filter =
+        input.value.toLowerCase();
+
+    const table =
+        document.getElementById(tableId);
+
+    const rows =
+        table.getElementsByTagName("tr");
+
+
+    for(let i=1;i<rows.length;i++){
+
+        const text =
+            rows[i].innerText.toLowerCase();
+
+        rows[i].style.display =
+            text.includes(filter) ? "" : "none";
+
+    }
+
+}
+
+
+/* DARK MODE */
+
+function toggleDarkMode(){
+
+    document.body.classList.toggle("dark");
+
+}
+
+
+/* PROFILE */
+
+function toggleProfile(){
+
+    document
+    .getElementById("profilePopup")
+    .classList.toggle("show");
+
+}
+
+
+/* NOTIFICATIONS */
+
+function showNotifications(){
+
+    alert(
+        "🔔 Notifications\n\n" +
+        "1. Internal Assessment Schedule Released\n" +
+        "2. Placement Training Program\n" +
+        "3. Semester Registration Open"
+    );
+
+}
+
+
+/* MOBILE SIDEBAR */
+
+function toggleSidebar(){
+
+    document
+    .getElementById("sidebar")
+    .classList.toggle("open");
+
+}
+
+
+/* ENTER KEY LOGIN */
+
+document
+.getElementById("password")
+.addEventListener("keypress",function(event){
+
+    if(event.key==="Enter"){
+        login();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
